@@ -1,10 +1,25 @@
 package com.legatohealth.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "item")
 public class Item {
 	
+	@Id
+	@Column(name = "itemid")
 	private int itemId;
+	
+	@Column(name = "itemname")
 	private String itemName;
 	
+	public Item() {
+		super();
+	}
+
 	public Item(int itemId, String itemName) {
 		super();
 		this.itemId = itemId;

@@ -1,17 +1,33 @@
 package com.legatohealth.bean;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "product")
 public class Product {
-	
+
+	@Id
+	@Column(name = "productid")
 	private int productId;
+
+	@Column(name = "productname")
 	private String productName;
+
+	@Column(name = "itemid")
 	private int itemId;
-	private double price;
-	
+
+	private BigDecimal price;
+
 	public Product() {
 		super();
 	}
 
-	public Product(int productId, String productName, int itemId, double price) {
+	public Product(int productId, String productName, int itemId, BigDecimal price) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -43,11 +59,11 @@ public class Product {
 		this.itemId = itemId;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
@@ -56,8 +72,5 @@ public class Product {
 		return "Product [productId=" + productId + ", productName=" + productName + ", itemId=" + itemId + ", price="
 				+ price + "]";
 	}
-	
-	
-	
 
 }
