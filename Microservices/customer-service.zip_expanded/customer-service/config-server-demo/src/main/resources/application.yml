@@ -1,0 +1,11 @@
+server:
+  port: 8888
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Pradhap2895/spring-config-properties.git
+          default-label: main
+          
+         # https://github.com/praveenqie/legetohealth-fullstack-handson.git
