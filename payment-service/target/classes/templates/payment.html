@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Details</title>
+  <style>
+  	* {
+  		box-sizing: border-box;
+  	}
+  	
+  	body {
+  		margin: 5px 30px;
+  	}
+  	
+    label {
+      display: block;
+    }
+
+    input, button {
+      margin: 0;
+      line-height: 1.15;
+      overflow: visible;
+    }
+
+    .form__content, .form__container{
+      margin: 1rem auto;
+    }
+    
+    .form__content label {
+    	display: inline;
+    	margin-right: .5rem;
+    }
+    	
+    .form__input {
+      display: inline-block;
+      width: 60%;
+      padding: .825rem 1.125rem;
+      margin-bottom: .85rem;
+    }
+    
+    
+    
+    .buttons_container {
+     	width: 60%;
+    	text-align: center;
+    }
+    
+    .form_btn {
+    	border: 0;
+	    padding: 0.825rem 1.125rem;
+	    background-color: #fbc600;
+        font-weight: 700;
+	    text-transform: uppercase;
+	    text-decoration: none;
+	    border: none;
+	    cursor: pointer;
+	    position: relative;
+	    padding-left: 2.5rem;
+	    padding-right: 2.5rem;
+	    margin-top: 1.25rem;
+    }
+    
+    form {
+    	display: none;
+    }
+    
+    form.active {
+    	display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="form__content">
+  
+    <h3>Payment Options</h3>
+    <div class="payment_options">
+      <input class="form__content--input" type="radio" name="paymentType" id="credit-card" checked>
+      <label for="credit-card">Credit Card</label>
+      <input class="form__content--input" type="radio" name="paymentType" id="debit-card">
+      <label for="debit-card">Debit Card</label>
+      <input class="form__content--input" type="radio" name="paymentType" id="netbanking">
+      <label for="netbanking">Net Banking</label>
+    </div>
+  </div>
+  
+  <div class="form__container">
+    <form action="/processcreditcard" name="credit-card-form" id="credit-card-form" method="post" class="active">
+      <label for="cc">Credit Card Number</label>
+      <input class="form__input" type="number" placeholder="Enter Card Number" name="cc" id="cc">
+      <label for="password">Password</label>
+      <input class="form__input" type="password" name="password" id="password">
+      <div class="buttons_container">
+        <button type="submit" class="form_btn">Pay</button>
+        <button type="reset" class="form_btn">Reset</button>
+      </div>
+    </form>
+    <form action="/processdebitcard" method="post" id="debit-card-form" name="debit-card-form">
+    	<label for="dc">Debit Card Number</label>
+      <input class="form__input" type="number" placeholder="Enter Card Number" name="dc" id="dc">
+      <div class="buttons_container">
+        <button type="submit" class="form_btn">Pay</button>
+        <button type="reset" class="form_btn">Reset</button>
+      </div>
+    </form>
+    <form action="/processnetbanking" method="post" id="netbanking-form">
+      <label for=""customerId"">Customer ID</label>
+      <input class="form__input" type="number" placeholder="Enter CustomerId" name="customerId" id=""customerId"">
+      <label for="password">Password</label>
+      <input class="form__input" type="password" name="password" id="password">
+    	<div class="buttons_container">
+        <button type="submit" class="form_btn">Pay</button>
+        <button type="reset" class="form_btn">Reset</button>
+      </div>
+    </form>
+  </div>
+  <script type="text/javascript">
+  	var paymentOptions = document.querySelectorAll(".form__content--input");
+  	paymentOptions.forEach(function(paymentOption){
+  		paymentOption.addEventListener('change', function(e){
+  			debugger;
+  			var target = e.target;
+  			if(!target) return;
+  			
+  			var targetId = target.id;
+  			var targetFormId = targetId + "-form";
+  			var form = document.getElementById(targetFormId);
+  			if(!form) return;
+  			hideAllForms();
+  			form.classList.add("active");
+  		});
+  	});
+  	function hideAllForms() {
+  		document.querySelectorAll('form').forEach(function(formEl){
+  			formEl.classList.remove('active');
+  		});
+  	}
+  </script>
+</body>
+</html>
