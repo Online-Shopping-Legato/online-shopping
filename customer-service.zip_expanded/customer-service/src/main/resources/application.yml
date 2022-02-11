@@ -1,0 +1,10 @@
+server:
+  port: 8989
+spring:
+  application:
+    name: customer-service
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/online_shopping
+    username: root
+    password: root
