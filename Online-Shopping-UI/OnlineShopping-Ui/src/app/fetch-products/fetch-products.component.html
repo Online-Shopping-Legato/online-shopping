@@ -1,0 +1,11 @@
+<div>
+    <h3>Search Product</h3>
+    <form [formGroup] = 'product' (ngSubmit) = 'handleSubmit()'>
+        <label>
+            Enter id
+            <input type = 'number' formControlName = 'id' />
+        </label>
+        <input type = 'submit' value = 'Search' class = 'btn btn-primary'>
+    </form>
+    
+</div>
