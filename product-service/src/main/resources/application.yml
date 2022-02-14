@@ -1,0 +1,10 @@
+server:
+  port: 9898
+spring:
+  application:
+    name: product-service
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/online_shopping
+    username: root
+    password: root

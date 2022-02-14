@@ -21,7 +21,14 @@ public class CustomerImpl implements CustomerService {
 
 	@Override
 	public Customer saveCustomer(Customer c) {
-		return custmoreDao.save(c);
+		Customer s = null;
+		if (c != null) {
+			if (!(c.getCustomername().equals(""))) {
+				System.out.println("came");
+				s = custmoreDao.save(c);
+			}
+		}
+		return s;
 	}
 
 	@Override

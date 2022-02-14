@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
 
-  baseUrl='http://localhost:9090/product-service';
+  baseUrl='http://localhost:9898/product-service';
+  customerURL="http://localhost:8989/ca";
 
   constructor(private _httpClient:HttpClient) { }
 
@@ -18,5 +19,9 @@ export class ProductService {
     return this._httpClient.get(url);
   }
 
-
+  storeCustomer(customer:any) : Observable<any>{
+    console.log('--servicve-'+customer);
+    let url=`${this.customerURL}/customer`;
+    return this._httpClient.post(url,customer);
+  }
 }
