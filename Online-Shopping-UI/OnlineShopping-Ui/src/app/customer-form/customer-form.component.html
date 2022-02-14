@@ -1,0 +1,84 @@
+<div class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-8 ">
+        <form [formGroup]="customer" (ngSubmit)="handleSubmit()">
+            <h5>Customer Details</h5>
+           
+            <div class="form-outline mb-7 col-md-7 offset-xl-1">
+                <label class="form-label fw-bold" for="customername">Name</label>
+                <input type="text" formControlName="customername" placeholder="Enter customer name"
+                class="form-control" >
+                <span class="text-danger" [hidden]="customer.controls['customername'].valid || customer.controls['customername'].pristine">Enter name with min legnth 3 </span>
+              
+            </div>
+
+            <div class="form-outline mb-7 col-md-7  offset-xl-1">
+                <label class="form-label fw-bold" for="customerpassword">Password</label>
+                <input type="password" formControlName="customerpassword" class="form-control " 
+                placeholder="Enter password" required>
+                <div class="alert alert-danger" [hidden]="customer.controls['customerpassword'].valid ||  
+                customer.controls['customerpassword'].pristine">Password is  required  </div> 
+              
+            </div>
+            
+            <div class="form-outline mb-7 col-md-7  offset-xl-1">
+                <label class="form-label fw-bold" for="accountnumber">Account Number</label>
+                <input type="number" formControlName="accountnumber" class="form-control" placeholder="Enter account number" required>
+                <div class="alert alert-danger" [hidden]="customer.controls['accountnumber'].valid || 
+                 customer.controls['accountnumber'].pristine"> Account Number is required </div> 
+            </div>
+
+            <div class="form-outline mb-7 col-md-7 offset-xl-1">
+                <label class="form-label fw-bold" for="debitcardnumber">Debitcard Number</label>
+                <input type="number" formControlName="debitcardnumber" class="form-control" 
+                placeholder="Enter debitcard number" required>
+                <div class="alert alert-danger" [hidden]=" customer.controls['debitcardnumber'].valid ||
+                  customer .controls['debitcardnumber'].pristine"> Debitcard Number is required </div> 
+
+          
+        </div>
+            <div formGroupName="address">
+            <h5>Billing Address</h5>
+           
+            <div class="form-outline mb-7 col-md-7 offset-xl-1">
+                <label class="form-label fw-bold" for="streetname">Street Name</label>
+                <input type="text" formControlName="streetname" class="form-control" 
+                placeholder="Enter street name" required>
+                <!-- <div class="alert alert-danger" [hidden]="customer.controls['address.streetname'].valid || 
+                     customer.controls['address.streetname'].pristine"> Street name is required </div>   -->
+
+            </div>
+
+            <div class="form-outline mb-7 col-md-7 offset-xl-1">
+                <label class="form-label fw-bold" for="city">City</label>
+                <input type="text" formControlName="city" class="form-control" placeholder="Enter city name" required>
+                <!-- <div class="alert alert-danger" [hidden]=" customer.controls['city'].valid || 
+                     customer .controls['city'].pristine"> City name is required </div>  -->
+
+            </div>
+            <div class="form-outline mb-7 col-md-7 offset-xl-1">
+                <label class="form-label fw-bold" for="state">State</label>
+                <input type="text" formControlName="state" class="form-control" placeholder="Enter state name" required>
+                <!-- <div class="alert alert-danger" [hidden]=" customer.controls['city'].valid || 
+                     customer .controls['city'].pristine"> City name is required </div>  -->
+
+            </div>
+            <div class="form-outline mb-7 col-md-7 offset-xl-1">
+                <label class="form-label fw-bold" for="pin">Pin</label>
+                <input type="text" formControlName="pin" class="form-control" placeholder="Enter Pincode " required>
+                <!-- <div class="alert alert-danger" [hidden]=" customer.controls['city'].valid || 
+                     customer .controls['city'].pristine"> City name is required </div>  -->
+
+            </div>
+          
+        </div>
+        <div class="col-md-8 offset-xl-1 mt-2">
+            <div class="form-outline mb-7 col-md-7  offset-xl-1 justify-content-center align-items-center">
+                <div class="col text-center">
+                     <input type="submit" value="Payment"class=" btn btn-primary" [disabled]="customer.invalid">
+                    </div>
+                </div>
+                </div>
+            </form>
+          </div>
+            </div>
+            

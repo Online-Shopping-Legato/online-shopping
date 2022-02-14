@@ -1,19 +1,57 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-    <div class="container-fluid">
-      <div class="navbar-header">
-            <a class="navbar-brand" href="#">E-Commerce</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" >
+      <img src="/assets/shoping.jfif" width="30" height="30" class="d-inline-block align-top" alt="">
+     Online-Shopping
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+
+      <div class="navbar-nav" *ngFor="let prd of res">
+        <!-- (click)='handleTest(prd.itemId) -->
+          <a class="nav-item nav-link "
+             [routerLink]="['products/', prd.itemId]">
+             {{prd.itemName | uppercase}}
+          </a>
+          
       </div>
-      <div class="nav navbar-nav navbar-right bg-info" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li class="active "><a href="#">Home</a></li>
-          <li><a href="#">Page 1</a></li>
-          <li><a href="#">Page 2</a></li>
-          <li><a href="#">Page 3</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Cart</a></li>
-         
-        </ul>
+
+      <div class="navbar-nav nav-right ml-auto">
+          <a 
+             class="nav-item nav-link " routerLink="/cart">
+              <i class="fa-shopping-cart"></i>
+              Cart
+          </a>
+
+          <a 
+          class="nav-item nav-link " routerLink="/customer">
+      <i class="fa-shopping-cart"></i>
+      Customer
+    </a>
+
+          <!-- <ng-container *ngIf="currentUser; else noUser">
+              <a class="nav-item nav-link " routerLink="/order">
+                  <i class="fas fa-list-ul"></i>
+                  Orders
+              </a>
+              <a class="nav-item nav-link " routerLink="/profile">
+                  {{name}}
+              </a>
+              <a class="nav-item nav-link " (click)="logout()" routerLink="/login" [queryParams]="{logout: true}">
+                  Sign Out
+              </a>
+          </ng-container>
+          <ng-template #noUser>
+              <a class="nav-item nav-link " routerLink="/login">
+                  Sign In
+              </a>
+              <a class="nav-item nav-link " routerLink="/register">
+                  Sign Up
+              </a>
+          </ng-template> -->
       </div>
-    </div>
-  </nav>
+  </div>
+</nav>

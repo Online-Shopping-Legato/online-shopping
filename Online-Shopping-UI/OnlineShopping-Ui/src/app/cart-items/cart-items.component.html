@@ -1,0 +1,7 @@
+<div *ngIf="cartItems.length === 0" class="alert alert-info">You're cart is Empty</div>
+
+<div *ngIf="cartItems.length > 0" >
+    <ul class="list-group" value="cartItems" *ngFor="let i of cartItems">
+        <li>{{i}}</li>
+    </ul>
+</div>
