@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Details</title>
+  <style>
+  
+  	* {
+  		box-sizing: border-box;
+  	}
+  	
+  	body {
+  		margin: 5px 30px;
+  	}
+  	
+    label {
+      display: block;
+    }
+
+    input, button {
+      margin: 0;
+      line-height: 1.15;
+      overflow: visible;
+    }
+
+    .form__content, .form__container{
+      margin: 1rem auto;
+    }
+    
+    .form__content label {
+    	display: inline;
+    	margin-right: .5rem;
+    }
+    	
+    .form__input {
+      display: inline-block;
+      width: 60%;
+      padding: .825rem 1.125rem;
+      margin-bottom: .85rem;
+    }
+    
+    
+    
+    .buttons_container {
+     	width: 60%;
+    	text-align: center;
+    }
+    
+    .form_btn {
+    	border: 0;
+	    padding: 0.825rem 1.125rem;
+	    background-color: #fbc600;
+        font-weight: 700;
+	    text-transform: uppercase;
+	    text-decoration: none;
+	    border: none;
+	    cursor: pointer;
+	    position: relative;
+	    padding-left: 2.5rem;
+	    padding-right: 2.5rem;
+	    margin-top: 1.25rem;
+    }
+    
+    .payment__option-container {
+    	display: none;
+    }
+    
+    .payment__option-container.active {
+    	display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="form__content">
+  
+    <h3>Payment Options</h3>
+    
+  </div>
+  
+  <div class="form__container">
+    <form action="/processPayment" method="post" id="payment-form">
+    	<div>
+    		<input type="text" name="amount" id="amount" hidden="true"/> 
+    		<input type="text" name="productlist" id="" value="${productList}" hidden="true">
+    	</div>
+    	<div class="payment_options">
+	      <input class="form__content--input"  type="radio" name="paymentType" id="credit-card" checked>
+	      <label for="credit-card">Credit Card</label>
+	      <input class="form__content--input" type="radio" name="paymentType" id="debit-card">
+	      <label for="debit-card">Debit Card</label>
+	      <input class="form__content--input"  type="radio" name="paymentType" id="netbanking">
+	      <label for="netbanking">Net Banking</label>
+	    </div>
+	    <div class="payment__option-container"  id="credit-card-container">
+	    	<label for="cc">Credit Card Number</label>
+	    	<input class="form__input" type="number"  placeholder="Enter Card Number" name="cc" id="cc" required>
+	    </div>
+	    <div class="payment__option-container" id="debit-card-container">
+	    	<label for="dc">Debit Card Number</label>
+	    	<input class="form__input" type="number"  placeholder="Enter Card Number" required name="dc" id="dc">
+	    </div>
+	    <div class="payment__option-container" id="netbanking-container">
+	    	<label for="customerId">Customer ID</label>
+	    	<input class="form__input" type="number" name="customerId" id="customerId" value="${customerId}" placeholder="Enter CustomerId" required>
+	    </div>
+	    <div class="payment__option-container" id="pasword-container">
+	    	<label for="password">Password</label>
+	    	<input class="form__input" type="password" name="password" id="password" required>
+	    </div>
+	    
+	    <div class="buttons_container">
+	      <button type="submit" class="form_btn">Pay</button>
+	      <button type="reset" class="form_btn">Reset</button>
+	    </div>
+    </form>
+  </div>
+  <script type="text/javascript">
+  	var paymentOptions = document.querySelectorAll(".form__content--input");
+  	paymentOptions.forEach(function(paymentOption){
+  		paymentOption.addEventListener('change', function(e){
+  			debugger;
+  			var target = e.target;
+  			if(!target) return;
+  			
+  			var targetId = target.id;
+  			
+  			var targetFormId = targetId + "-container";
+  			var paymentOption = document.getElementById(targetFormId);
+  			if(!paymentOption) return;
+  			hideAllPaymentOptions();
+  			paymentOption.classList.add("active");
+			if(targetId !== 'debit-card') {
+				var passwordContainer = document.getElementById('pasword-container');
+				if(passwordContainer) passwordContainer.classList.add('active');
+			}
+  		});
+  	});
+  	function hideAllPaymentOptions() {
+  		document.querySelectorAll('payment__option-container').forEach(function(container){
+  			container.classList.remove('active');
+  		});
+  	}
+  	
+  	/* var form = document.getElementById('payment-form');
+  	form.addEventListener('submit', function(e) {
+  		form.querySelector
+  	}); */
+  	
+  </script>
+</body>
+</html>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import com.customer.service.CustomerService;
 
 @RestController
 @RequestMapping("/ca")
+@CrossOrigin(origins = "*")
 public class CustomerController {
 
 	@Autowired
@@ -37,8 +39,12 @@ public class CustomerController {
 
 		ResponseEntity<Object> response = null;
 		// System.out.println(customer.getA);
-		Customer createdCustomer = customerService.saveCustomer(customer);
-		response = ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
+		if (customer != null) {
+			Customer createdCustomer = customerService.saveCustomer(customer);
+			response = ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
+		} else {
+			response = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong");
+		}
 		return response;
 	}
 
