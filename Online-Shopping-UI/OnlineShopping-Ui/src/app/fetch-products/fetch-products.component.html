@@ -9,15 +9,15 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th><input type="checkbox" name="prdct" > select All</th>
+                <th><input type="checkbox" name="prdct" (click)="checkuncheckall()"> select All</th>
                 <th>Sl.No</th>
                 <th>Name</th>
                 <th>Price</th>
               </tr>
             </thead> 
             <tbody>
-              <tr *ngFor="let prds of products index as i">
-                <td><input type="checkbox"></td>
+              <tr *ngFor="let prds of products index as i" (click)='handleCart(prds.productName,prds.price,prds.productId)'>
+                <td><input type="checkbox" [checked]="isChecked"></td>
                 <td>{{i+1}}</td>
                 <td><input type="text" hidden name='{{prds.productName}}' [value]="prds.productName"
                    >{{prds.productName | uppercase}}</td>
@@ -33,8 +33,8 @@
         
 
       <!-- </div> -->
-      <div class="container text-center" >
+      <!-- <div class="container text-center" >
         <input type='submit' value='Add'>
-      </div>
+      </div> -->
     
 </div>

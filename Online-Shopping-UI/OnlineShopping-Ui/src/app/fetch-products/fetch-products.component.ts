@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -13,12 +13,17 @@ export class FetchProductsComponent implements OnInit {
     id:any;
     res : any=undefined;
     itemId: number = 0;
+ 
+
+  productArray: any = [{}];
   
     products: any = undefined;
     msg: boolean = false;
     tab: boolean = false;
 
-  constructor(private _productService:ProductService,private _builder:FormBuilder,private _actRoute: ActivatedRoute) { 
+  constructor(private _productService:ProductService,
+    private _builder:FormBuilder,
+    private _actRoute: ActivatedRoute, private _route:Router) { 
    this._actRoute.params.subscribe((p:Params)=>{
      this.id = p['id'];
      console.log(this.id);
@@ -35,9 +40,9 @@ export class FetchProductsComponent implements OnInit {
    
   }
 
-  product=this._builder.group({
-    id:[]
-  })
+  // product=this._builder.group({
+  //   id:[]
+  // })
 
   // handleSubmit() :void {
   //   let id=this.product.controls['id'].value;
@@ -65,6 +70,42 @@ export class FetchProductsComponent implements OnInit {
       console.log(err)
     })
     console.log(itemId);
+  }
+
+  isChecked = false;
+  checkuncheckall() {
+    if (this.isChecked == true) {
+      this.isChecked = false;
+    }
+    else {
+      this.isChecked = true;
+    }
+
+  }
+
+   product = {}
+
+  handleCart(productName: string, price: number, id: number): void {
+  
+    this.product = {
+      'productName': productName,
+      'price': price,
+      'id': id
+    };
+
+    console.log(this.product)
+    const exists = this.productArray.filter((f: any) =>
+      f.productName === this.product
+    );
+    if (exists.length <= 0) {
+      console.log('insert:' + JSON.stringify(this.product));
+      //this._router.navigate(['/cart',id,productName,price]);
+      this._route.navigate(['/cart',JSON.stringify(this.product)]);
+    } else {
+      console.log('delete:' + JSON.stringify(this.product));
+      //delete this.productArray[this.product];
+    }
+
   }
 
 }

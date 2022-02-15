@@ -3,7 +3,6 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ItemService } from '../item.service';
 import { ProductService } from '../product.service';
-import { SharedserviceService } from '../sharedservice.service';
 
 @Component({
   selector: 'app-fetch-items',

@@ -10,11 +10,14 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { Routes, RouterModule, Router} from "@angular/router";
 import { CartItemsComponent } from './cart-items/cart-items.component';
+
 let routeConfig : Routes =[
-  // {path:'', component: WelcomeComponent},
+   {path:'welcome', component: WelcomeComponent},
   {path:'products/:id',component: FetchProductsComponent},
   {path:'cart',component: CartItemsComponent},
-  {path:'customer',component: CustomerFormComponent}
+  {path:'customer',component: CustomerFormComponent},
+  {path:'cart/:product',component:CartItemsComponent}
+  // {path:'payment',component:PaymentServiceComponent}
 ]
 @NgModule({
   declarations: [
