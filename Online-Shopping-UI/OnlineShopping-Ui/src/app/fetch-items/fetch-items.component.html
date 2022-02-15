@@ -14,43 +14,35 @@
       </div>
       <hr />
 
-
-      <form [formGroup]='details' (ngSubmit)='handleCart()'>
-        <!-- <td><input type="text" [value]="testvalue"
+      <!-- <td><input type="text" [value]="testvalue"
           formControlName='productName1'>testvalue</td> -->
-        <div class="col-8 container text-right">
-          <!-- {{prds.productName}} 
+      <div class="col-8 container text-right">
+        <!-- {{prds.productName}} 
         <input type="checkbox" > 
         price : {{prds.price}} -->
-          <div class="container" *ngIf="tab">
+        <div class="container" *ngIf="tab">
 
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th><input type="checkbox" name="prdct" (click)="checkuncheckall()"> select All</th>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th><input type="checkbox" name="prdct" (click)="checkuncheckall()"> select All</th>
+                <th>ProductName</th>
+                <th>Product Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let prds of products"  (click)='handleCart(prds.productName,prds.price,prds.productId)'>
+                <td><input type="checkbox" [checked]="isChecked"></td>
+                <td><input type="text" hidden>{{prds.productName}}</td>
+                <td><input type="number" hidden>{{prds.price}}</td>
+              </tr>
+            </tbody>
+          </table>
+         
 
-                  <th>ProductName</th>
-                  <th>Product Price</th>
-                </tr>
-              </thead> 
-              <tbody>
-                <tr *ngFor="let prds of products">
-                  <td><input type="checkbox" [checked]="isChecked"></td>
-                  <td><input type="text" hidden name='{{prds.productName}}' [value]="prds.productName"
-                      formControlName='productName'>{{prds.productName}}</td>
-                  <td><input type="number"  hidden value="{{prds.price}}" formControlName='price'>{{prds.price}}</td>
-                  <!-- <td>{{prd.itemId}}</td>
-                  <td>{{prd.itemName}}</td> -->
-                </tr>
-              </tbody>
-            </table>
-
-          </div>
         </div>
-        <div class="container text-center" *ngIf='msg'>
-          <input type='submit' value='Add'>
-        </div>
-      </form>
+      </div>
+
     </div>
   </div>
   <div>
@@ -66,28 +58,4 @@
 
 </div>
 
-
-<!-- <div>
-    <button (click)='handleSubmit()'>Fetch</button>
-
-    <div>
-        <div>
-        <div>
-          <table class="table">
-            <thead><hr/>
-              <tr>
-                <th>ID</th>
-                <th>NAME</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let prd of res">
-                <td>{{prd.itemId}}</td>
-                <td>{{prd.itemName}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-</div>
- -->
+<router-outlet></router-outlet>
