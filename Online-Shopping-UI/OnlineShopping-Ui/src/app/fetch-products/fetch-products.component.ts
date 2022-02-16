@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ProductService } from '../product.service';
+import { Items } from '../Items';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-fetch-products',
@@ -10,34 +12,36 @@ import { ProductService } from '../product.service';
 })
 export class FetchProductsComponent implements OnInit {
 
-    id:any;
-    res : any=undefined;
-    itemId: number = 0;
- 
+  id: any;
+  res: any = undefined;
+  itemId: number = 0;
+
+
+
 
   productArray: any = [{}];
-  
-    products: any = undefined;
-    msg: boolean = false;
-    tab: boolean = false;
 
-  constructor(private _productService:ProductService,
-    private _builder:FormBuilder,
-    private _actRoute: ActivatedRoute, private _route:Router) { 
-   this._actRoute.params.subscribe((p:Params)=>{
-     this.id = p['id'];
-     console.log(this.id);
-   this._productService.fetchEmployeeById(this.id).subscribe(data=>{
-      console.log(data);
-      this.products=data;
-   },err=>{
-     console.log(err)
-   })
+  products: any = undefined;
+  msg: boolean = false;
+  tab: boolean = false;
+
+  constructor(private _productService: ProductService,
+    private _builder: FormBuilder,
+    private _actRoute: ActivatedRoute, private _route: Router, private _dataService: DataService) {
+    this._actRoute.params.subscribe((p: Params) => {
+      this.id = p['id'];
+      console.log(this.id);
+      this._productService.fetchEmployeeById(this.id).subscribe(data => {
+        console.log(data);
+        this.products = data;
+      }, err => {
+        console.log(err)
+      })
     });
   }
 
   ngOnInit(): void {
-   
+
   }
 
   // product=this._builder.group({
@@ -83,29 +87,22 @@ export class FetchProductsComponent implements OnInit {
 
   }
 
-   product = {}
+  product = {}
+
+  items: Items[] = [];
 
   handleCart(productName: string, price: number, id: number): void {
-  
-    this.product = {
-      'productName': productName,
-      'price': price,
-      'id': id
-    };
 
-    console.log(this.product)
-    const exists = this.productArray.filter((f: any) =>
-      f.productName === this.product
-    );
-    if (exists.length <= 0) {
-      console.log('insert:' + JSON.stringify(this.product));
-      //this._router.navigate(['/cart',id,productName,price]);
-      this._route.navigate(['/cart',JSON.stringify(this.product)]);
-    } else {
-      console.log('delete:' + JSON.stringify(this.product));
-      //delete this.productArray[this.product];
-    }
+    let item: any;
+    item = new Items(id, productName, price);
+    this.items.push(item)
+  }
 
+
+  additems() {
+    console.log(this.items);
+    this._dataService.setData(this.items);
+    this._route.navigateByUrl('/cart')
   }
 
 }

@@ -1,40 +1,46 @@
 <div class="row d-flex justify-content-center align-items-center">
 
-    <div class="col-md-8 ">
-        <!-- {{prds.productName}} 
+  <div class="col-md-8 ">
+    <!-- {{prds.productName}} 
       <input type="checkbox" > 
       price : {{prds.price}} -->
-        <!-- <div class="container" > -->
-            <h3>Items List</h3>
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th><input type="checkbox" name="prdct" (click)="checkuncheckall()"> select All</th>
-                <th>Sl.No</th>
-                <th>Name</th>
-                <th>Price</th>
-              </tr>
-            </thead> 
-            <tbody>
-              <tr *ngFor="let prds of products index as i" (click)='handleCart(prds.productName,prds.price,prds.productId)'>
-                <td><input type="checkbox" [checked]="isChecked"></td>
-                <td>{{i+1}}</td>
-                <td><input type="text" hidden name='{{prds.productName}}' [value]="prds.productName"
-                   >{{prds.productName | uppercase}}</td>
-                <td><input type="number"  hidden value="{{prds.price}}" >{{prds.price | currency:"INR"}}</td>
-               
-              </tr>
-            </tbody>
-          </table>
-          <!-- <div col-md-2>
+    <!-- <div class="container" > -->
+    <h3>Items List</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th><input type="checkbox" name="prdct" (click)="checkuncheckall()"> select All</th>
+          <th>Sl.No</th>
+          <th>Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prds of products index as i" (click)='handleCart(prds.productName,prds.price,prds.productId)'>
+          <td><input type="checkbox" [checked]="isChecked"></td>
+          <td>{{i+1}}</td>
+          <td><input type="text" hidden name='{{prds.productName}}' [value]="prds.productName">{{prds.productName |
+            uppercase}}</td>
+          <td><input type="number" hidden value="{{prds.price}}">{{prds.price | currency:"INR"}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+    <!-- <div col-md-2>
             offers
         </div> -->
-        </div>
-        
+  </div>
 
-      <!-- </div> -->
-      <!-- <div class="container text-center" >
+  <div class="container text-center">
+    <input type='submit' (click)='additems()' value='AddToCart'>
+
+  </div>
+
+  <p>{{items}}</p>
+
+  <!-- </div> -->
+  <!-- <div class="container text-center" >
         <input type='submit' value='Add'>
       </div> -->
-    
+
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { ProductService } from '../product.service';
 })
 export class CustomerFormComponent implements OnInit {
 
-  constructor(private _builder: FormBuilder,private _service: ProductService) { }
+  constructor(private _builder: FormBuilder,private _service: ProductService,private _router : Router) { }
 
   ngOnInit(): void {
   }
@@ -39,6 +40,7 @@ export class CustomerFormComponent implements OnInit {
       console.log(response.success);
       this.success=response.success;
       this.customer.reset();
+      this._router.navigate(['payment'])
     },err => {
       this.errMsg = err.error.error;
     })
