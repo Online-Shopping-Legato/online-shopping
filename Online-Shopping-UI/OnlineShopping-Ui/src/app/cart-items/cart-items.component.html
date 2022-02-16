@@ -1,7 +1,24 @@
-<div *ngIf="cartItems.length === 0" class="alert alert-info">You're cart is Empty</div>
-
-<div *ngIf="cartItems.length > 0" >
-    <ul class="list-group" value="cartItems" *ngFor="let i of cartItems">
-        <li>{{i}}</li>
-    </ul>
+<div>
+    {{res}}
+    {{cartItems | json}}
 </div>
+
+<!-- <div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+
+                <th>Sl.No</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let prds of cartItems">
+            <td>{{prds.productId}}</td> 
+            <td>>{{prds.productName | uppercase}}</td>
+            <td>{{prds.price | currency:"INR"}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div> -->

@@ -34,7 +34,7 @@ export class PaymentServiceComponent implements OnInit {
     const value = e.target.value;
     this.paymentType = value;
     // this.getPaymentType.valueChanges.subscribe((res) => {
-
+  console.log('value '+value)
     if (value === 'netbanking') {
       this.paymentForm.removeControl('password');
     } else {
