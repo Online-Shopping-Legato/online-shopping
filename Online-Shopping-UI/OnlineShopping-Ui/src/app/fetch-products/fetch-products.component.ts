@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
+import { CartItemsComponent } from '../cart-items/cart-items.component';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -29,9 +30,8 @@ export class FetchProductsComponent implements OnInit {
      console.log(err)
    })
     });
-  }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
    
   }
 
