@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
-  private data = [{}];
+  private data = [];
 
   setData(val: any) {
     this.data = val;

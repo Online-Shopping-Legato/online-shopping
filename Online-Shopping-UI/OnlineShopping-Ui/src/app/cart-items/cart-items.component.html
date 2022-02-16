@@ -1,9 +1,10 @@
-<div>
-    {{res}}
-    {{cartItems | json}}
+<h3>Cart Items</h3>
+<hr />
+<div *ngIf='total === 0'>
+    <p class="alert alert-info">Your Carty Is Empty</p>
 </div>
 
-<!-- <div>
+<div *ngIf='total >0'>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -15,10 +16,19 @@
         </thead>
         <tbody>
             <tr *ngFor="let prds of cartItems">
-            <td>{{prds.productId}}</td> 
-            <td>>{{prds.productName | uppercase}}</td>
-            <td>{{prds.price | currency:"INR"}}</td>
-          </tr>
+                <td>{{prds.productId}}</td>
+                <td>{{prds.productName | uppercase}}</td>
+                <td>{{prds.price | currency:"INR"}}</td>
+            </tr>
+            
+            <button class="btn btn-primary" [routerLink]="['/products/', 2]">AddItem</button>
+            <button class="btn btn-primary" [routerLink]="['/products/', 1]">RemoveAllItem</button>
+            <button class="btn btn-primary" [routerLink]="['/customer']">OrderNow</button>
         </tbody>
-      </table>
-</div> -->
+    </table>
+    <p>Total Amount :{{total}}</p>
+</div>
+
+<div>
+
+</div>
