@@ -9,21 +9,19 @@ import { DataService } from '../data.service';
 })
 export class CartItemsComponent implements OnInit {
 
-  cartItems = [{}];
+  cartItems :any;
   res: any;
+  total :number=0;
+
   constructor(private _activateRoute: ActivatedRoute, private _dataService: DataService) {
     this.cartItems = this._dataService.getData();
     console.log(this.cartItems);
   }
 
   ngOnInit(): void {
-    this._activateRoute.params.subscribe((p: Params) => {
-      this.res = p['items'];
-      //this.cartItems.push(this.res[0]);
-      // console.log(this.res);
-    })
-
-
+      for(let data of this.cartItems ){
+          this.total=this.total+data.price;
+      }
   }
 
 }
