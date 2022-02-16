@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Details</title>
+  <style>
+  
+  	* {
+  		box-sizing: border-box;
+  	}
+  	
+  	body {
+  		margin: 5px 30px;
+  	}
+  	
+    label {
+      display: block;
+	  font-weight: 700;
+    }
+
+    input, button {
+      margin: 0;
+      line-height: 1.15;
+      overflow: visible;
+    }
+
+    .form__content, .form__container{
+      margin: 1rem auto;
+    }
+    
+    .form__content label {
+    	display: inline;
+    	margin-right: .5rem;
+    }
+    	
+    .form__input {
+      display: inline-block;
+      width: 60%;
+      padding: .825rem 1.125rem;
+      margin-bottom: .85rem;
+    }
+    
+    
+    
+    .buttons_container {
+     	width: 60%;
+    	text-align: center;
+    }
+    
+    .form_btn {
+    	border: 0;
+	    padding: 0.825rem 1.125rem;
+	    background-color: #fbc600;
+        font-weight: 700;
+	    text-transform: uppercase;
+	    text-decoration: none;
+	    border: none;
+	    cursor: pointer;
+	    position: relative;
+	    padding-left: 2.5rem;
+	    padding-right: 2.5rem;
+	    margin-top: 1.25rem;
+    }
+    
+    .payment_options {
+    	margin: 10px 0 20px 0
+    }
+    .payment__option--label {
+    	display: inline-block;
+    	margin-right: 20px;
+    }
+    #netbanking-container{
+    	display: none;
+    }
+    
+    .form__container {
+    	padding-left: 50px;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body>
+<section >
+<h1 style="text-align:center">Payment Form</h1><hr>
+
+  <div class="form__content">
+  
+    <h3>Payment Options</h3>
+    
+  </div>
+  
+  <div class="form__container" >
+    <form action="/processPayment" method="post" id="payment-form">
+    	 
+    	<div style="margin:15px 0">
+    		<label style="display:inline-block">Amount: </label><input type="text" name="amount" id="amount" th:value="${amount}" readonly style="border:none;margin-left:20px;"/>
+    		<input type="text" name="productList" id="" th:value="${productList}" hidden="true">
+    	</div>
+    	<div class="payment_options">
+	      
+	      <label for="cc" class="payment__option--label"><input class="form__content--input"  type="radio" id="cc" name="paymentType" value="credit-card" checked> Credit Card</label>
+	      
+	      <label for="dc" class="payment__option--label"><input class="form__content--input" type="radio" id="dc" name="paymentType" value="debit-card"> Debit Card</label>
+	      
+	      <label for="net" class="payment__option--label"><input class="form__content--input"  type="radio" id="net" name="paymentType" value="netbanking"> Net Banking</label>
+	    </div>
+	    <div class="payment__option-container"  id="netbanking-container">
+	    	<label for="customerId">Customer Id</label>
+	    	<input class="form__input" type="number"  placeholder="Enter Customer ID" name="customerId" id="customerId" th:value="${customerId}">
+		</div>
+	    <div class="payment__container">
+	    	
+		    <div class="payment__option-container"  id="credit-card-container">
+		    	<label for="credit-card">Credit Card Number</label>
+		    	<input class="form__input" type="number"  placeholder="Enter Credit Card Number" name="credit-card" id="credit-card" required>
+		    </div>
+		    <div class="payment__option-container" id="pasword-container">
+		    	<label for="password">Password</label>
+		    	<input class="form__input" type="password" name="password" id="password" required>
+		    </div>
+	    </div>
+	    <div class="buttons_container">
+	      <button type="submit" class="form_btn form_btn--submit">Pay</button>
+	      <button type="reset" class="form_btn">Reset</button>
+	    </div>
+    </form>
+  </div>
+  </section>
+  <script type="text/javascript">
+  	var paymentOptions = document.querySelectorAll(".form__content--input");
+  	var netbankingContainer = document.getElementById("netbanking-container");
+  	var paymentContainer = document.querySelector('.payment__container');
+  	
+  	paymentOptions.forEach(function (paymentOption) {
+  	  paymentOption.addEventListener('change', function (e) {
+  	    var target = e.target
+  	    if (!target) return
+  	    
+  	    var value = target.value;
+  	  	netbankingContainer.style.display = "none";
+  	    paymentContainer.innerHTML = '';
+  	    
+		if (value === 'netbanking') {
+			netbankingContainer.style.display = "block";
+        } else {
+        	paymentContainer.appendChild(createFormInputWrapper(value));
+        }
+  	    if (value !== 'debit-card') {
+  	      paymentContainer.appendChild(createFormInputWrapper('password'));
+  	    }
+  	  });
+  	});
+  	
+  	function hideAllPaymentOptions() {
+  		document.querySelectorAll('payment__option-container').forEach(function(container){
+  			container.classList.remove('active');
+  		});
+  	}
+  	
+  	/* var form = document.getElementById('payment-form');
+  	form.addEventListener('submit', function(e) {
+  		form.querySelector
+  	}); */
+  	
+  	function createInput(name) {
+  	  var input = document.createElement('input');
+  	  input.setAttribute('type', getInputType(name));
+  	  input.setAttribute('required', 'required');
+  	  input.setAttribute('name', getInputName(name));
+  	  input.setAttribute('id', name);
+  	  input.setAttribute('placeholder', 'Enter ' + getLabelText(name));
+  	  input.className = 'form__input';
+  	  return input;
+  	}
+
+  	function createLabel(name) {
+  	  var label = document.createElement('label');
+  	  label.setAttribute('for', name);
+  	  label.textContent = getLabelText(name);
+  	  return label;
+  	}
+
+  	function createFormInputWrapper(name) {
+  	  var div = document.createElement('div');
+  	  div.className = name +'-container';
+  	  var labelEl = createLabel(name);
+  	  var inputEl = createInput(name);
+  	  div.appendChild(labelEl);
+  	  div.appendChild(inputEl);
+  	  return div;
+  	}
+
+  	function getInputType(name) {
+  	  switch (name) {
+  	    case 'credit-card':
+  	    case 'debit-card':
+  	    case 'netbanking':
+  	      return 'number';
+  	    case 'password':
+  	      return 'Password';
+  	  }
+  	}
+	
+  	function getInputName(name) {
+  	  switch (name) {
+  	    case 'credit-card':
+  	      return 'ccNumber'
+  	    case 'debit-card':
+  	      return 'dcNumber'
+  	    case 'password':
+  	      return 'password'
+  	  }
+  	}
+  	function getLabelText(name) {
+  	  switch (name) {
+  	    case 'credit-card':
+  	      
+  	      return 'Credit Card Number'
+  	    case 'debit-card':
+
+  	      return 'Debit Card Number';
+  	    
+  	    case 'netbanking':
+
+  	      return 'Customer ID';
+  	    case 'password':
+
+  	      return 'Password';
+  	  }
+  	}
+  	
+  	function clear_input_error(el) {
+  	  // Remove the programmatically added aria-describedby attribute when the error is resolved
+  	  el.removeAttribute('aria-describedby')
+
+  	  var parent = el.parentElement
+  	  var label_el = document.querySelector('#' + el.id + '_error')
+  	  if (!label_el) return
+  	  parent.removeChild(label_el)
+  	  el.classList.remove('error')
+  	}
+
+  	function show_input_error(el,  message) {
+  	  if (el.classList.contains('error')) {
+  	    return
+  	  }
+
+  	  // Add aria-describedby to input element so we can have multiple labels
+  	  el.setAttribute('aria-describedby', el.id + '_error')
+
+  	  var parent = el.parentElement
+
+  	  // Create error as a div instead of label or else will throw warning for orphaned label
+  	  var error_label = document.createElement('div')
+
+  	  // Add id to the error for aria-describedby
+  	  error_label.id = el.id + '_error'
+
+  	  error_label.classList.add('form__error-label')
+
+  	  // Set role to alert for aria compliance
+  	  error_label.setAttribute('role', 'alert')
+
+  	  var label_txt = document.createTextNode(message)
+  	  error_label.appendChild(label_txt);
+  	  el.appendChild(error_label);
+  	  el.classList.add('error')
+  	}
+  	
+  	
+  	 function handle_form_submission() {
+  	   var submit_button = document.querySelector('.form_btn--submit')
+  	   var form_action = document
+  	     .querySelector('#payment-form')
+  	     .getAttribute('action') // Use this in XHR
+  	   var success_handlers = []
+  	   var failure_handlers = []
+
+  	   /* Submit form data to an endpoint via XHR */
+  	   function submit_form_data() {
+  	     var exception_msg = 'Failed to submit contact form'
+  	     var okay_msg = 'Order Placed successfully'
+
+  	     $.post(form_action, $('#payment-form').serialize())
+  	       .done(function (data) {
+  	         if (data.includes('SUCCESS')) {
+  	           success_handlers.forEach(function (handler) {
+  	             handler(okay_msg)
+  	           })
+  	         } else {
+  	           failure_handlers.forEach(function (handler) {
+  	             handler(exception_msg)
+  	           })
+  	         }
+  	       })
+  	       .fail(function (data) {
+  	         failure_handlers.forEach(function (handler) {
+  	           handler('Transaction failed')
+  	         })
+  	       })
+  	   }
+
+  	   function bind_form_success_handler(cb) {
+  	     success_handlers.push(cb)
+  	   }
+
+  	   function bind_form_failure_handler(cb) {
+  	     failure_handlers.push(cb)
+  	   }
+
+  	   submit_button.onclick = function (e) {
+  		 var all_fields = [].slice.call(document.querySelectorAll('.form__input'));
+  	     var i
+  	     for (i = 0; i < all_fields.length; i++) {
+  	       var field = all_fields[i]
+  	       var required = field.required
+
+  	       if (!field.value && required) {
+  	         return false;
+  	       }
+  	     }
+
+  	     e.preventDefault()
+
+  	    /*  bind_form_success_handler(show_success)
+  	     bind_form_failure_handler(show_input_error)
+  	 */
+  	     bind_form_success_handler(function (data) {
+  	       console.log('Data: ', data)
+  	     })
+
+  	     bind_form_failure_handler(function (error) {
+  	       console.log('Error: ', error)
+  	     })
+
+  	     /* End analytics tracking hooks */
+
+  	     submit_form_data()
+  	   }
+  	 }
+  	 handle_form_submission();
+  	
+  </script>
+</body>
+</html>

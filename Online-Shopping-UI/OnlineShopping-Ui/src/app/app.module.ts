@@ -10,6 +10,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { Routes, RouterModule, Router} from "@angular/router";
 import { CartItemsComponent } from './cart-items/cart-items.component';
+import { PaymentServiceComponent } from './payment-service/payment-service.component';
 
 let routeConfig : Routes =[
    {path:'welcome', component: WelcomeComponent},
@@ -26,7 +27,8 @@ let routeConfig : Routes =[
     FetchProductsComponent,
     WelcomeComponent,
     CustomerFormComponent,
-    CartItemsComponent
+    CartItemsComponent,
+    PaymentServiceComponent
   ],
   imports: [
     BrowserModule,FormsModule,ReactiveFormsModule,HttpClientModule,

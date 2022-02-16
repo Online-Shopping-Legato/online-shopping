@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <style type="text/css">
+  	* {
+  		box-sizing: border-box;
+  	}
+  	
+  	body {
+  		margin: 5px 30px;
+  	}
+  	
+  	section {
+  		margin: 50px;
+  	}
+  	
+    label {
+      display: block;
+	  font-weight: 700;
+    }
+
+    input, button {
+      margin: 0;
+      line-height: 1.15;
+      overflow: visible;
+    }
+
+    .form__content, .form__container{
+      margin: 1rem auto;
+    }
+    
+    .form__content label {
+    	display: inline;
+    	margin-right: .5rem;
+    }
+    	
+    .form__input {
+      display: inline-block;
+      width: 60%;
+      padding: .825rem 1.125rem;
+      margin-bottom: .85rem;
+    }
+    
+    
+    
+    .buttons_container {
+     	width: 60%;
+    	text-align: center;
+    }
+    
+    .form_btn {
+    	border: 0;
+	    padding: 0.825rem 1.125rem;
+	    background-color: #fbc600;
+        font-weight: 700;
+	    text-transform: uppercase;
+	    text-decoration: none;
+	    border: none;
+	    cursor: pointer;
+	    position: relative;
+	    padding-left: 2.5rem;
+	    padding-right: 2.5rem;
+	    margin-top: 1.25rem;
+    }
+    
+  </style>
+</head>
+<body>
+	<h1>Shopping Cart Simulation</h1>
+	<section>
+		<form action="/payment" method="post">
+		    <div class="payment__container">
+			   <div class="payment__option-container" id="pasword-container">
+				   	<label for="customerId"> Customer ID: </label>
+				   	<input class="form__input" type="text" name="customerId" id="customerId" readonly>
+			   </div>
+		     
+				<div class="payment__option-container" id="pasword-container">
+				   	<label for="amount"> Amount:</label>
+				   	<input class="form__input" type="text" name="amount" id="amount">
+			    </div>
+			     <div class="payment__option-container" id="pasword-container">
+				   	<label for="productList"> Product List: </label>
+				   	<input class="form__input" type="text"  name="productList" id="productList" readonly>
+			    </div>
+		    </div>
+	      
+	      <p>
+	        <button class="form_btn" type="submit">Submit</button>
+	      </p>
+	    </form>
+	</section>
+    
+    <script>
+    	var initData = {
+    		    "customerId": 12345,
+    		    "amount": 3500,
+    		    "productList" : [
+    		        {
+    		            "productId": 12,
+    		            "productName": "Samsung",
+    		            "itemId": 100,
+    		            "price": 50
+    		        },
+    		        {
+    		            "productId": 13,
+    		            "productName": "Nokia",
+    		            "itemId": 100,
+    		            "price": 50
+    		        },
+    		        {
+    		            "productId": 14,
+    		            "productName": "Apple",
+    		            "itemId": 100,
+    		            "price": 50
+    		        }
+    		    ]
+    		};
+    	document.querySelector('#customerId').value = initData.customerId;
+    	document.querySelector('#amount').value = initData.amount;
+    	document.querySelector('#productList').value = JSON.stringify(initData.productList);
+    </script>
+</body>
+</html>
