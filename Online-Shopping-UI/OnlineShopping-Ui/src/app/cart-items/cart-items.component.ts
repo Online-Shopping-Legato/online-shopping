@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-cart-items',
@@ -7,14 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartItemsComponent implements OnInit {
 
-  cartItems = [
-    {id:1,name:'Iphone',price:200},
-    {id:2,name:'samsung',price:100},
-    {id:3,name:'google',price:300},
-  ];
-  constructor() { }
+  cartItems :any;
+  res: any;
+  total :number=0;
+
+  constructor(private _activateRoute: ActivatedRoute, private _dataService: DataService) {
+    this.cartItems = this._dataService.getData();
+    console.log(this.cartItems);
+  }
 
   ngOnInit(): void {
+      for(let data of this.cartItems ){
+          this.total=this.total+data.price;
+      }
   }
 
 }

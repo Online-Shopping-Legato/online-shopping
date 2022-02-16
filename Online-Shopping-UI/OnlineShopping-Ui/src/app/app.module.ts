@@ -17,8 +17,8 @@ let routeConfig : Routes =[
   {path:'products/:id',component: FetchProductsComponent},
   {path:'cart',component: CartItemsComponent},
   {path:'customer',component: CustomerFormComponent},
-  {path:'cart/:product',component:CartItemsComponent}
-  // {path:'payment',component:PaymentServiceComponent}
+  {path:'cart',component:CartItemsComponent},
+   {path:'payment',component:PaymentServiceComponent}
 ]
 @NgModule({
   declarations: [
